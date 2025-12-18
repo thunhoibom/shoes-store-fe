@@ -1,0 +1,49 @@
+name: Deploy Frontend
+
+on:
+  push:
+    branches: [ main, master ]
+    paths:
+      - 'src/**'
+      - 'public/**'
+      - 'package.json'
+      - 'package-lock.json'
+      - 'vite.config.js'
+      - 'Dockerfile'
+      - 'nginx.conf'
+      - '.github/workflows/deploy.yml'
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: self-hosted
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '18'
+        cache: 'npm'
+
+    - name: Install dependencies
+      run: npm ci
+
+    - name: Build frontend
+      run: npm run build
+
+    - name: Build Docker image
+      run: docker build -t sneaker-frontend:latest .
+
+    - name: Deploy frontend
+      run: |
+        # Path to your project root (adjust if needed)
+        PROJECT_ROOT="D:\fashion-shoes-store\sneaker-root"
+
+        # Navigate to project root
+        cd "$PROJECT_ROOT"
+
+        # Run deployment script
+        ./deploy.sh frontend
