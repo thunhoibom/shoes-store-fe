@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 import "./UserChangePassword.css";
 import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
-import axios from "axios";
+import axios from "../../axiosConfig";
 const UserChangePassword = () => {
   const [changePass, setChangePass] = useState({
     currentPass: "",
@@ -30,7 +30,7 @@ const UserChangePassword = () => {
       };
       try {
         const res = await axios.put(
-          `http://localhost:8080/api/user/changePassword/${user?.id}`,
+          `/api/user/changePassword/${user?.id}`,
           data,
           {
             headers: {

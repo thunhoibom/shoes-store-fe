@@ -19,7 +19,7 @@ import "./ManagerInvoice.css";
 import ReactPaginate from "react-paginate";
 import { DatePicker } from "reactstrap-date-picker";
 import { FaFileInvoiceDollar } from "react-icons/fa";
-import axios from "axios";
+import axios from "../../axiosConfig";
 import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
 
@@ -40,7 +40,7 @@ const ManagerInvoice = () => {
       const token = currentUser?.accessToken;
 
       const response = await axios.get(
-        `http://localhost:8080/api/user/admin/all-invoices?page=${page}&sortBy=${sortBy}&status=${statusFilter}`,
+        `/api/user/admin/all-invoices?page=${page}&sortBy=${sortBy}&status=${statusFilter}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -238,7 +238,7 @@ const ModalInvoice = ({ modal, toggle, invoiceData, currentUser }) => {
       };
 
       const response = await axios.put(
-        `http://localhost:8080/api/user/invoices/${invoiceData.invoiceId}`,
+        `/api/user/invoices/${invoiceData.invoiceId}`,
         updateData,
         {
           headers: {

@@ -7,7 +7,7 @@ import products from "../assets/data/products";
 import ProductsList from "../components/UI/ProductsList";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import axios from "axios";
+import axios from "../axiosConfig";
 import ReactPaginate from "react-paginate";
 const Shop = () => {
   const [productsData, setProductsData] = useState([]);
@@ -18,7 +18,7 @@ const Shop = () => {
   const [check, setCheck] = useState(1);
   const pageProduct = async (page) => {
     const res = await axios.get(
-      `http://localhost:8080/api/product/shop-products?page=${page}`
+      `/api/product/shop-products?page=${page}`
     );
     setProductsData(res.data.data);
     setTotalPages(res.data.total_pages);
@@ -34,7 +34,7 @@ const Shop = () => {
 
   const fetchSort = async () => {
     const res = await axios.get(
-      `http://localhost:8080/api/product/sort-products?asc=${asc}&sortBy=${sort}`
+      `/api/product/sort-products?asc=${asc}&sortBy=${sort}`
     );
     setProductsSort(res.data.data);
   };

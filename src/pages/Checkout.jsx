@@ -5,7 +5,7 @@ import "../styles/checkout.css";
 import { useDispatch, useSelector } from "react-redux";
 import { clearCart } from "../redux/slices/cartSlice";
 import { toast } from "react-toastify";
-import axios from "axios";
+import axios from "../axiosConfig";
 import { useState } from "react";
 import { addOrder } from "../redux/slices/purchasedSlice";
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
@@ -21,7 +21,7 @@ const Checkout = () => {
   const dispatch = useDispatch();
   const paymentOnline = async (money) => {
     const res = await axios.get(
-      `http://localhost:8080/api/payment_online/create_payment/${money}`,
+      `/api/payment_online/create_payment/${money}`,
       {
         headers: {
           Authorization: `Bearer ${user?.accessToken}`,
@@ -93,7 +93,7 @@ const Checkout = () => {
       };
 
       const invoiceResponse = await axios.post(
-        `http://localhost:8080/api/user/${user.id}/create-invoice`,
+        `/api/user/${user.id}/create-invoice`,
         invoiceData,
         {
           headers: {
@@ -111,7 +111,7 @@ const Checkout = () => {
         };
 
         await axios.post(
-          "http://localhost:8080/api/email/send-email",
+          "/api/email/send-email",
           data,
           {
             headers: {
@@ -323,7 +323,7 @@ const ModalPopup = (props) => {
       message: `Cảm ơn quý khách hàng đã đặt hàng tại SneakerShop. Sneaker shop rất vui thông báo đơn hàng #${idOrder} của quý khách đang trong quá trình xử lý.Quý khách có thể tra cứu tình trạng đơn hàng. THÔNG TIN ĐƠN HÀNG .Địa chỉ giao hàng: #${formEmail.address}, số điện thoại: ${formEmail.phone}, Người nhận hàng: ${formEmail.name}`,
     };
     const res = await axios.post(
-      "http://localhost:8080/api/email/send-email",
+      "/api/email/send-email",
       data,
       {
         headers: {

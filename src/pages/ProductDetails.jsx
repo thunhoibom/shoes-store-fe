@@ -11,7 +11,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import { cartActions } from "../redux/slices/cartSlice";
 import size from "../assets/data/sizeArr";
-import axios from "axios";
+import axios from "../axiosConfig";
 import SizeModal from "../components/UI/SizeModal";
 import SelectQuantity from "../components/UI/SelectQuantity";
 import bannernho from "../assets/images/banner-nho.png";
@@ -35,7 +35,7 @@ const ProductDetails = () => {
   const allProducts = useSelector((state) => state.managerProduct?.products);
   useEffect(() => {
     const fetchProduct = async () => {
-      const res = await axios.get(`http://localhost:8080/api/product/${id}`);
+      const res = await axios.get(`/api/product/${id}`);
       setItem(res.data.data);
     };
     fetchProduct();

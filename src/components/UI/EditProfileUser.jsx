@@ -14,7 +14,7 @@ import {
 import { toast } from "react-toastify";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
-import axios from "axios";
+import axios from "../../axiosConfig";
 import { editProfile } from "../../redux/slices/authSlice";
 
 const EditUserModal = (props) => {
@@ -34,7 +34,7 @@ const EditUserModal = (props) => {
   const handleEditData = async () => {
     try {
       const res = await axios.put(
-        `http://localhost:8080/api/user/profile/${id}`,
+        `/api/user/profile/${id}`,
         dataEditUser,
         {
           headers: {

@@ -15,7 +15,7 @@ import { toast } from "react-toastify";
 import { useDispatch, useSelector } from "react-redux";
 import { editProduct } from "../../redux/slices/managerProductSlice";
 import { useEffect } from "react";
-import axios from "axios";
+import axios from "../../axiosConfig";
 import { editUser } from "../../redux/slices/UserSlice";
 
 const EditUserModal = (props) => {
@@ -34,7 +34,7 @@ const EditUserModal = (props) => {
   const handleEditData = async () => {
     try {
       const res = await axios.put(
-        `http://localhost:8080/api/user/${id}`,
+        `/api/user/${id}`,
         dataEditUser,
         {
           headers: {

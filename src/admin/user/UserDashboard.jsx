@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Container, Row } from "reactstrap";
 import { motion } from "framer-motion";
-import axios from "axios";
+import axios from "../../axiosConfig";
 import { useDispatch, useSelector } from "react-redux";
 import Loading from "../../components/UI/Loading";
 import { toast } from "react-toastify";
@@ -29,7 +29,7 @@ const UserDashboard = () => {
   const newUsers = users?.filter((item) => item.id !== user.id);
 
   const fetchAllUserToExport = async () => {
-    const res = await axios.get(`http://localhost:8080/api/user/all-user`, {
+    const res = await axios.get(`/api/user/all-user`, {
       headers: {
         Authorization: `Bearer ${user?.accessToken}`,
       },
@@ -39,7 +39,7 @@ const UserDashboard = () => {
 
   const fetchAllUser = async (page) => {
     const res = await axios.get(
-      `http://localhost:8080/api/user/all?page=${page}`,
+      `/api/user/all?page=${page}`,
       {
         headers: {
           Authorization: `Bearer ${user?.accessToken}`,
@@ -159,7 +159,7 @@ const Tr = ({ data, idx }) => {
   const dispatch = useDispatch();
   const deleteUser = async () => {
     const res = await axios.delete(
-      `http://localhost:8080/api/user/${data?.id}`,
+      `/api/user/${data?.id}`,
       {
         headers: {
           Authorization: `Bearer ${user?.accessToken}`,
